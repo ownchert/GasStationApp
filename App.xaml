@@ -1,0 +1,144 @@
+﻿<Application x:Class="GasStationApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="LoginWindow.xaml">
+    <Application.Resources>
+
+        <!-- 1. ТВОЯ ПАЛИТРА (Цвета с картинки) -->
+        <SolidColorBrush x:Key="ColorDarkCharcoal" Color="#3B3A3D"/>
+        <!-- Текст, Заголовки -->
+        <SolidColorBrush x:Key="ColorMutedGrey" Color="#6E6C78"/>
+        <!-- Вторичный текст, иконки -->
+        <SolidColorBrush x:Key="ColorMutedTeal" Color="#7AA899"/>
+        <!-- Акцент, Основные кнопки -->
+        <SolidColorBrush x:Key="ColorMutedLavender" Color="#8B7AA8"/>
+        <!-- Вторичные кнопки, выделения -->
+        <SolidColorBrush x:Key="ColorDarkNavy" Color="#27263D"/>
+        <!-- Фон меню -->
+
+        <SolidColorBrush x:Key="ColorBackground" Color="#F5F7F9"/>
+        <!-- Общий фон (светлый) -->
+        <SolidColorBrush x:Key="ColorWhite" Color="#FFFFFF"/>
+
+        <!-- 2. ГЛОБАЛЬНЫЙ ШРИФТ -->
+        <!-- Segoe UI есть на всех Windows. Если скачаешь Montserrat, напиши здесь "Montserrat" -->
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorDarkCharcoal}"/>
+        </Style>
+        <Style TargetType="{x:Type Page}">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorDarkCharcoal}"/>
+        </Style>
+
+        <!-- 3. СТИЛЬ КНОПОК (Закругленные, без стандартных рамок) -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource ColorMutedTeal}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.9"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#BDC3C7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- 4. СТИЛЬ ТЕКСТОВЫХ ПОЛЕЙ (TextBox) -->
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorMutedGrey}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="5">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 5. СТИЛЬ ТАБЛИЦ (DataGrid) - Самое важное для красоты -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#EEEEEE"/>
+            <Setter Property="RowHeight" Value="40"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <!-- Стиль заголовков -->
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Foreground" Value="{StaticResource ColorMutedGrey}"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Padding" Value="10,0"/>
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="#DDDDDD"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <!-- Стиль ячеек -->
+            <Setter Property="CellStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="10,0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Padding="{TemplateBinding Padding}" 
+                                            Background="{TemplateBinding Background}" 
+                                            BorderBrush="Transparent" 
+                                            BorderThickness="0">
+                                        <ContentPresenter VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{StaticResource ColorMutedLavender}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 6. СТИЛЬ КАЛЕНДАРЯ (DatePicker) -->
+        <Style TargetType="DatePicker">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+    </Application.Resources>
+</Application>
